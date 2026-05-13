@@ -237,6 +237,16 @@ const AGENT_URL =
   localStorage.getItem("premiumCarAgentUrl") ||
   "/premium-agent";
 
+const params = new URLSearchParams(window.location.search);
+const tenantId = params.get("tenant_id") || "volvo_colombia";
+
+const TENANT_GREETINGS = {
+  volvo_colombia: "Hola, soy tu asesor virtual Volvo. ¿En qué puedo ayudarte hoy?",
+  caminos_eje_cafetero: "Hola, soy tu asesor virtual de Caminos Chevrolet. ¿Qué tipo de vehículo estás buscando hoy?"
+};
+
+const fallbackGreeting = "Hola, soy tu asesor virtual. ¿En qué puedo ayudarte?";
+
 const STORAGE_KEYS = {
   sessionId: "premiumCarSessionId",
   messages: "premiumCarMessages",
@@ -259,7 +269,11 @@ const state = {
 };
 
 function updateSessionBadge() {
-  sessionBadge.innerText = "Sesión: " + state.sessionId;
+  sessionBadge.innerText = "Sesión: " + state.sessionId + " · Tenant: " + tenantId;
+}
+
+function getTenantGreeting() {
+  return TENANT_GREETINGS[tenantId] || fallbackGreeting;
 }
 
 function getOrCreateSessionId() {
@@ -327,7 +341,7 @@ function restoreMessages() {
   chat.innerHTML = "";
 
   if (state.messages.length === 0) {
-    addMessage("agent", "Hola, soy tu asesor virtual. ¿Me compartes tu nombre y ciudad para iniciar la asesoría?");
+    addMessage("agent", getTenantGreeting());
     return;
   }
 
@@ -462,7 +476,7 @@ async function sendMessage() {
       session_id: state.sessionId,
       user_message: message,
       message: message,
-      tenant_id: "volvo_colombia",
+      tenant_id: tenantId,
 
       // -----------------------------
       // Estado acumulado enviado al backend
@@ -474,7 +488,8 @@ async function sendMessage() {
       catalog_context: "",
       metadata: {
         source: "chat-html",
-        mode: "direct-fastapi-chat"
+        mode: "direct-fastapi-chat",
+        tenant_id: tenantId
       }
     };
 
@@ -542,7 +557,7 @@ function resetConversation() {
   chat.innerHTML = "";
   renderQuickReplies([]);
   updateSessionBadge();
-  addMessage("agent", "Hola, soy tu asesor virtual, bienvenido a Volvo. ¿En qué puedo ayudarte hoy?");
+  addMessage("agent", getTenantGreeting());
   input.focus();
 }
 
