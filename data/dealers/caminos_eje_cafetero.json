@@ -1,36 +1,56 @@
 {
-  "brand": "Caminos",
+  "brand": "Chevrolet",
   "market": "Eje Cafetero",
   "dealers": [
     {
-      "name": "Caminos Pereira",
+      "name": "Taller Belmonte Pereira",
       "city": "Pereira",
       "postal_code": "660001",
-      "type": ["sales", "service"],
-      "address": "Pereira, Risaralda",
-      "phone": "",
-      "notes": "Sede multimarca Caminos en Pereira para asesoria comercial, cotizacion y agenda de visita.",
-      "services": ["ventas", "asesoria multimarca", "financiacion", "test drive sujeto a disponibilidad"]
+      "type": ["service", "after_sales"],
+      "address": "Av. 30 de Agosto No 94-165, barrio Belmonte, Pereira",
+      "phone": "313 5000",
+      "notes": "Taller Caminos Chevrolet en Pereira para servicios posventa.",
+      "services": ["posventa", "taller", "mantenimiento", "servicio Chevrolet"]
     },
     {
-      "name": "Caminos Manizales",
-      "city": "Manizales",
-      "postal_code": "170001",
-      "type": ["sales", "service"],
-      "address": "Manizales, Caldas",
-      "phone": "",
-      "notes": "Sede multimarca Caminos en Manizales para clientes de Caldas y zonas cercanas.",
-      "services": ["ventas", "asesoria multimarca", "financiacion", "test drive sujeto a disponibilidad"]
+      "name": "ChevyExpress Pereira",
+      "city": "Pereira",
+      "postal_code": "660001",
+      "type": ["service", "after_sales"],
+      "address": "Cra. 12b #9-52, Pereira",
+      "phone": "313 5000",
+      "notes": "ChevyExpress Caminos Chevrolet en Pereira para servicios rapidos y posventa.",
+      "services": ["posventa", "servicio rapido", "mantenimiento", "servicio Chevrolet"]
     },
     {
-      "name": "Caminos Armenia",
+      "name": "Taller Armenia",
       "city": "Armenia",
       "postal_code": "630001",
-      "type": ["sales", "service"],
-      "address": "Armenia, Quindio",
-      "phone": "",
-      "notes": "Sede multimarca Caminos en Armenia para clientes de Quindio y municipios cercanos.",
-      "services": ["ventas", "asesoria multimarca", "financiacion", "test drive sujeto a disponibilidad"]
+      "type": ["service", "after_sales"],
+      "address": "Avenida Bolivar No. 23N-46, Armenia",
+      "phone": "731 4090",
+      "notes": "Taller Caminos Chevrolet en Armenia para clientes de Quindio y zonas cercanas.",
+      "services": ["posventa", "taller", "mantenimiento", "servicio Chevrolet"]
+    },
+    {
+      "name": "Taller Manizales Flotas",
+      "city": "Manizales",
+      "postal_code": "170001",
+      "type": ["service", "after_sales", "fleet_service"],
+      "address": "Calle 84 No. 26-71, piso 3, Manizales",
+      "phone": "893 0730",
+      "notes": "Taller Caminos Chevrolet en Manizales orientado a flotas.",
+      "services": ["posventa", "taller", "flotas", "mantenimiento", "servicio Chevrolet"]
+    },
+    {
+      "name": "Taller Manizales Particulares",
+      "city": "Manizales",
+      "postal_code": "170001",
+      "type": ["service", "after_sales"],
+      "address": "Av. Alberto Mendoza Cra 23 N. 74-01, Manizales",
+      "phone": "893 0730",
+      "notes": "Taller Caminos Chevrolet en Manizales para clientes particulares.",
+      "services": ["posventa", "taller", "mantenimiento", "servicio Chevrolet"]
     }
   ]
 }

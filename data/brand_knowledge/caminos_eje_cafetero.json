@@ -1,55 +1,78 @@
 {
-  "brand": "Caminos",
+  "brand": "Chevrolet",
   "market": "Eje Cafetero",
   "topics": [
     {
-      "topic": "asesoria multimarca",
-      "keywords": ["comparar", "opciones", "multimarca", "recomendar", "diferencias", "marcas"],
+      "topic": "concesionario chevrolet regional",
+      "keywords": ["caminos", "chevrolet", "concesionario", "eje cafetero", "pereira", "armenia", "manizales"],
       "content": [
-        "Caminos asesora clientes que quieren comparar vehiculos de diferentes marcas antes de decidir.",
-        "La recomendacion debe partir del uso real del cliente: ciudad, carretera, familia, finca, trabajo, presupuesto y forma de pago.",
-        "Si el cliente compara modelos, explica diferencias practicas sin favorecer una marca por defecto.",
-        "Cuando falten datos, pregunta por una sola variable clave para poder orientar mejor."
+        "Caminos Chevrolet comercializa vehiculos nuevos, usados y servicios posventa en el Eje Cafetero.",
+        "Caminos atiende clientes en Pereira, Armenia y Manizales.",
+        "El agente debe presentar a Caminos como concesionario Chevrolet regional, no como fabricante ni como multimarca generico.",
+        "La asesoria debe enfocarse en orientar al cliente hacia el vehiculo Chevrolet que mejor se ajuste a uso, presupuesto, ciudad y familia."
       ]
     },
     {
-      "topic": "cobertura regional",
-      "keywords": ["pereira", "manizales", "armenia", "eje cafetero", "sede", "vitrina", "ciudad"],
+      "topic": "precios versiones y disponibilidad",
+      "keywords": ["precio", "precios", "version", "versiones", "disponibilidad", "inventario", "equipamiento"],
       "content": [
-        "Caminos cuenta con sedes en Pereira, Manizales y Armenia.",
-        "Si el cliente esta en una ciudad con sede, orienta la visita hacia esa ciudad.",
-        "Si el cliente esta en otro municipio del Eje Cafetero, menciona las sedes disponibles y pregunta cual le queda mejor.",
-        "No inventes direcciones especificas si no estan en el contexto de sedes."
+        "No afirmes disponibilidad definitiva de ningun vehiculo.",
+        "No garantices precios, promociones, versiones, colores, equipamiento ni entregas.",
+        "Siempre aclara que precios, versiones, equipamiento y disponibilidad deben confirmarse directamente con Caminos Chevrolet.",
+        "Los precios del catalogo son referencias desde y pueden cambiar."
       ]
     },
     {
-      "topic": "seleccion por uso",
-      "keywords": ["familia", "trabajo", "finca", "viajes", "ciudad", "carretera", "uso diario"],
+      "topic": "suv familiar",
+      "keywords": ["suv", "familia", "familiar", "viajes", "espacio", "7 puestos", "camioneta"],
       "content": [
-        "Para ciudad y uso diario, prioriza vehiculos compactos, eficientes y faciles de estacionar.",
-        "Para familia, prioriza espacio, seguridad, comodidad y baul.",
-        "Para viajes entre Pereira, Manizales y Armenia, prioriza comodidad en carretera, respuesta del motor y estabilidad.",
-        "Para finca, trabajo o carga, considera pickups o SUVs con mayor despeje y capacidad."
+        "Si el usuario pregunta por SUV familiar, compara Tracker, Captiva XL, Equinox EV, Traverse o Tahoe segun presupuesto y tamano de familia.",
+        "Tracker funciona como SUV compacta para familia pequena y uso urbano.",
+        "Captiva XL es una opcion familiar con mayor espacio y posibilidad de 7 puestos segun version.",
+        "Equinox EV es una SUV electrica familiar para clientes que quieren tecnologia y movilidad electrica.",
+        "Traverse y Tahoe aplican para familias grandes, viajes y mayor capacidad."
       ]
     },
     {
-      "topic": "presupuesto y financiacion",
-      "keywords": ["presupuesto", "cuotas", "credito", "financiacion", "leasing", "contado"],
+      "topic": "vehiculos electricos",
+      "keywords": ["electrico", "electricos", "ev", "cero emisiones", "bateria", "carga"],
       "content": [
-        "El presupuesto ayuda a comparar opciones nuevas o versiones disponibles dentro del catalogo.",
-        "Si el cliente menciona cuotas, credito o financiacion, registra payment_method como financiacion.",
-        "No inventes tasas, cuotas, aprobaciones, promociones ni disponibilidad financiera.",
-        "Puedes ofrecer avanzar con un asesor para revisar alternativas de financiacion."
+        "Si el usuario pregunta por electricos, menciona Equinox EV, Blazer EV, Spark EUV y Captiva EV.",
+        "Spark EUV es una alternativa electrica urbana de entrada.",
+        "Captiva EV es una SUV electrica familiar.",
+        "Equinox EV y Blazer EV apuntan a clientes que buscan mas tecnologia, espacio o presencia.",
+        "No inventes autonomia, tiempos de carga ni beneficios legales si no estan en el contexto."
       ]
     },
     {
-      "topic": "tono comercial regional",
-      "keywords": ["trato", "regional", "cercano", "asesor", "acompanamiento"],
+      "topic": "carros urbanos",
+      "keywords": ["urbano", "ciudad", "primer carro", "onix", "hatchback", "sedan", "compacto"],
       "content": [
-        "El tono debe ser cercano, claro y comercial, propio de una asesoria regional.",
-        "Evita lenguaje exclusivo de una sola marca.",
-        "Usa expresiones naturales y breves, sin sonar robotico.",
-        "El objetivo es ayudar al cliente a elegir con confianza y llevarlo a una visita o contacto comercial."
+        "Si el usuario pregunta por carros urbanos, menciona Onix Sedan, Onix Turbo RS y Onix Turbo Hatchback.",
+        "Onix Sedan es una opcion practica para ciudad y uso diario con baul.",
+        "Onix Turbo RS apunta a clientes que quieren una imagen mas deportiva.",
+        "Onix Turbo Hatchback es util para quienes buscan maniobrabilidad y tamano compacto."
+      ]
+    },
+    {
+      "topic": "posventa y talleres",
+      "keywords": ["posventa", "taller", "mantenimiento", "servicio", "repuestos", "revision", "garantia"],
+      "content": [
+        "Si el usuario pide posventa, dirige a talleres segun ciudad.",
+        "En Pereira estan Taller Belmonte Pereira y ChevyExpress Pereira.",
+        "En Armenia esta Taller Armenia.",
+        "En Manizales estan Taller Manizales Flotas y Taller Manizales Particulares.",
+        "Para detalles de horarios, disponibilidad de citas, repuestos o garantias, pide confirmar directamente con Caminos Chevrolet."
+      ]
+    },
+    {
+      "topic": "orientacion por sede",
+      "keywords": ["sede", "ciudad", "cerca", "pereira", "armenia", "manizales", "visita"],
+      "content": [
+        "Si el usuario esta en Pereira, Armenia o Manizales, sugiere la sede Caminos de esa ciudad usando la informacion de sedes disponible.",
+        "Si el usuario esta en Pereira y pide posventa, puedes mencionar Taller Belmonte Pereira y ChevyExpress Pereira.",
+        "Si el usuario esta en Manizales y pide posventa, pregunta si es servicio particular o flota cuando sea relevante.",
+        "No uses expresiones como mas cercana si no hay calculo real de distancia; puedes decir la sede de tu ciudad."
       ]
     }
   ]
