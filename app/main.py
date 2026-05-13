@@ -71,6 +71,7 @@ class LeadAgentRequest(BaseModel):
     lead_state: Optional[Dict[str, Any]] = None
     catalog_context: str = ""
     conversation_history: List[Dict[str, str]] = Field(default_factory=list)
+    tenant_id: Optional[str] = None
 
 
 # =========================
@@ -209,6 +210,7 @@ def premium_agent(payload: LeadAgentRequest) -> Dict[str, Any]:
     # 4. Procesar mensaje
     # -----------------------------
     result = process_lead_message(
+        tenant_id=payload.tenant_id,
         session_id=payload.session_id,
         user_message=payload.user_message,
         lead_state=lead_state,

@@ -1,0 +1,13 @@
+{
+  "tenant_id": "volvo_colombia",
+  "brand": "volvo",
+  "brand_name": "Volvo",
+  "market": "colombia",
+  "market_name": "Colombia",
+  "timezone": "America/Bogota",
+  "currency": "COP",
+  "prompt_path": "app/prompts/premium_prompt.txt",
+  "catalog_path": "data/catalogs/volvo_colombia.json",
+  "dealers_path": "data/dealers/volvo_colombia.json",
+  "brand_knowledge_path": "data/brand_knowledge/volvo_colombia.json"
+}

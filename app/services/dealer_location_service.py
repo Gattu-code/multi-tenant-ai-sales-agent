@@ -21,13 +21,17 @@ Diseño:
 import json
 import unicodedata
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 DEALERS_PATH = Path("data/dealers")
 
 
-def load_dealers(brand: str, market: str) -> Dict[str, Any]:
+def load_dealers(
+    brand: str,
+    market: str,
+    path: Optional[str] = None,
+) -> Dict[str, Any]:
     """
     Carga la base de concesionarios según marca y mercado.
 
@@ -38,8 +42,11 @@ def load_dealers(brand: str, market: str) -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: base de dealers/concesionarios.
     """
-    file_name = f"{brand.lower()}_{market.lower()}.json"
-    file_path = DEALERS_PATH / file_name
+    if path:
+        file_path = Path(path)
+    else:
+        file_name = f"{brand.lower()}_{market.lower()}.json"
+        file_path = DEALERS_PATH / file_name
 
     if not file_path.exists():
         return {}
@@ -50,6 +57,7 @@ def load_dealers(brand: str, market: str) -> Dict[str, Any]:
 def get_dealers_list(
     brand: str,
     market: str,
+    path: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Devuelve la lista plana de concesionarios para uso interno.
@@ -66,7 +74,7 @@ def get_dealers_list(
     Returns:
         List[Dict[str, Any]]: lista de concesionarios.
     """
-    dealer_data = load_dealers(brand=brand, market=market)
+    dealer_data = load_dealers(brand=brand, market=market, path=path)
 
     if not dealer_data:
         return []

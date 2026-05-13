@@ -18,13 +18,17 @@ Diseño:
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
 
 CATALOGS_PATH = Path("data/catalogs")
 
 
-def load_catalog(brand: str, market: str) -> List[Dict]:
+def load_catalog(
+    brand: str,
+    market: str,
+    path: Optional[str] = None,
+) -> List[Dict]:
     """
     Carga el portafolio activo según marca y mercado.
 
@@ -35,8 +39,11 @@ def load_catalog(brand: str, market: str) -> List[Dict]:
     Returns:
         List[Dict]: lista de modelos disponibles en el portafolio.
     """
-    file_name = f"{brand.lower()}_{market.lower()}.json"
-    file_path = CATALOGS_PATH / file_name
+    if path:
+        file_path = Path(path)
+    else:
+        file_name = f"{brand.lower()}_{market.lower()}.json"
+        file_path = CATALOGS_PATH / file_name
 
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)

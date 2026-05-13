@@ -18,13 +18,17 @@ Diseño:
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 BRAND_KNOWLEDGE_PATH = Path("data/brand_knowledge")
 
 
-def load_brand_knowledge(brand: str, market: str) -> Dict[str, Any]:
+def load_brand_knowledge(
+    brand: str,
+    market: str,
+    path: Optional[str] = None,
+) -> Dict[str, Any]:
     """
     Carga la base de conocimiento de marca según marca y mercado.
 
@@ -35,8 +39,11 @@ def load_brand_knowledge(brand: str, market: str) -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: base de conocimiento de marca.
     """
-    file_name = f"{brand.lower()}_{market.lower()}.json"
-    file_path = BRAND_KNOWLEDGE_PATH / file_name
+    if path:
+        file_path = Path(path)
+    else:
+        file_name = f"{brand.lower()}_{market.lower()}.json"
+        file_path = BRAND_KNOWLEDGE_PATH / file_name
 
     if not file_path.exists():
         return {}
@@ -51,6 +58,7 @@ def retrieve_brand_context(
     brand: str,
     market: str,
     top_k: int = 2,
+    path: Optional[str] = None,
 ) -> str:
     """
     Recupera contexto relevante de conocimiento de marca.
@@ -70,7 +78,7 @@ def retrieve_brand_context(
     Returns:
         str: contexto de marca listo para agregar al prompt.
     """
-    knowledge = load_brand_knowledge(brand=brand, market=market)
+    knowledge = load_brand_knowledge(brand=brand, market=market, path=path)
 
     if not knowledge:
         return ""
@@ -117,6 +125,7 @@ def retrieve_brand_context(
 def get_brand_knowledge_list(
     brand: str,
     market: str,
+    path: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Devuelve la lista estructurada de conocimiento de marca para RAG V3.
@@ -133,7 +142,7 @@ def get_brand_knowledge_list(
     Returns:
         List[Dict[str, Any]]: lista de temas de conocimiento de marca.
     """
-    knowledge = load_brand_knowledge(brand=brand, market=market)
+    knowledge = load_brand_knowledge(brand=brand, market=market, path=path)
 
     if not knowledge:
         return []

@@ -23,6 +23,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from app.core.config.tenant_loader import load_tenant_config
 from app.services.date_normalizer import resolve_appointment_date, normalize_text
 from app.services.contact_validation_service import get_invalid_contact_fields
 from app.services.ai_provider import generate_ai_response
@@ -62,14 +63,15 @@ CATALOG_CONTEXT_MODE = "structured"
 DEALER_CONTEXT_MODE = "structured"
 RULES_CONTEXT_MODE = "structured"
 
-def load_base_prompt() -> str:
+def load_base_prompt(prompt_path: Optional[str] = None) -> str:
     """
     Carga desde archivo el prompt base del agente.
 
     Returns:
         str: contenido del archivo premium_prompt.txt.
     """
-    return PROMPT_PATH.read_text(encoding="utf-8")
+    path = Path(prompt_path) if prompt_path else PROMPT_PATH
+    return path.read_text(encoding="utf-8")
 
 
 def build_prompt(
@@ -77,6 +79,7 @@ def build_prompt(
     lead_state: Dict[str, Any],
     conversation_history: Optional[List[Dict[str, str]]] = None,
     context: str = "",
+    prompt_path: Optional[str] = None,
 ) -> str:
     """
     Construye el prompt final enviado al LLM.
@@ -102,7 +105,7 @@ def build_prompt(
     Returns:
         str: prompt completo listo para enviar al modelo.
     """
-    base_prompt = load_base_prompt()
+    base_prompt = load_base_prompt(prompt_path=prompt_path)
 
     history_text = json.dumps(
         conversation_history or [],
@@ -248,6 +251,7 @@ def process_lead_message(
     lead_state: Optional[Dict[str, Any]] = None,
     conversation_history: Optional[List[Dict[str, str]]] = None,
     catalog_context: str = "",
+    tenant_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Procesa un mensaje del usuario y devuelve la respuesta estructurada del agente AI.
@@ -282,6 +286,12 @@ def process_lead_message(
     # -----------------------------
     # 1. Inicialización del estado
     # -----------------------------
+    tenant_config = load_tenant_config(tenant_id)
+    brand = tenant_config.brand
+    market = tenant_config.market
+    timezone = tenant_config.timezone
+    currency = tenant_config.currency
+
     lead_state = lead_state or LeadModel().model_dump()
 
 
@@ -310,23 +320,26 @@ def process_lead_message(
     # - evolucionar fácilmente a RAG con embeddings cuando el volumen crezca
 
     catalog = load_catalog(
-        brand="volvo",
-        market="colombia",
+        brand=brand,
+        market=market,
+        path=tenant_config.catalog_path,
     )
 
     dealers = get_dealers_list(
-        brand="volvo",
-        market="colombia",
+        brand=brand,
+        market=market,
+        path=tenant_config.dealers_path,
     )
 
     brand_knowledge = get_brand_knowledge_list(
-        brand="volvo",
-        market="colombia",
+        brand=brand,
+        market=market,
+        path=tenant_config.brand_knowledge_path,
     )
 
     business_rules = get_business_rules_list(
-        brand="volvo",
-        market="colombia",
+        brand=brand,
+        market=market,
     )
 
     # -----------------------------
@@ -430,8 +443,8 @@ def process_lead_message(
     internal_context = get_internal_context(
         user_message=user_message,
         lead_state=lead_state,
-        brand="volvo",
-        market="colombia",
+        brand=brand,
+        market=market,
     )
 
     # -----------------------------
@@ -520,13 +533,13 @@ def process_lead_message(
         "domingo",
     ]
 
-    now_bogota = datetime.now(ZoneInfo("America/Bogota"))
+    now_bogota = datetime.now(ZoneInfo(timezone))
     weekday_name = weekday_labels[now_bogota.weekday()]
 
     current_date_context = (
         f"Fecha actual del sistema: {now_bogota.strftime('%Y-%m-%d')}.\n"
         f"Día de la semana: {weekday_name}.\n"
-        "Zona horaria: America/Bogota.\n"
+        f"Zona horaria: {timezone}.\n"
         "Usa esta fecha como referencia para entender expresiones como "
         "'mañana', 'este sábado' o 'próximo martes'. "
         "La fecha normalizada final la calcula el backend."
@@ -570,6 +583,7 @@ REGLAS INTERNAS RECUPERADAS:
         lead_state=lead_state,
         conversation_history=conversation_history,
         context=final_context,
+        prompt_path=tenant_config.prompt_path,
     )
     
     # -----------------------------
@@ -658,7 +672,7 @@ REGLAS INTERNAS RECUPERADAS:
         ]
         or "ciudades con vitrinas" in assistant_reply_text
         or "ciudades con sede" in assistant_reply_text
-        or "vitrinas volvo disponibles" in assistant_reply_text
+        or f"vitrinas {tenant_config.brand_name.lower()} disponibles" in assistant_reply_text
     ):
         max_quick_replies = 12
 
