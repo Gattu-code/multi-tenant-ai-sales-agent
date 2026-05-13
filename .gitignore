@@ -8,11 +8,15 @@ __pycache__/
 
 # OS / editor
 .DS_Store
+.vscode/
 
-data/*.json
-
-
-data/*.json
-
+# Runtime data
+data/observability/
+data/leads.json
+data/conversations.json
 data/last_prompt_debug.txt
 data/*debug*.txt
+
+# Optional local runtime db/files
+*.db
+*.sqlite3
