@@ -21,6 +21,7 @@ from pydantic import BaseModel, Field
 import json
 from app.agents.premium_agent import process_lead_message
 from app.core.config.tenant_loader import DEFAULT_TENANT_ID
+from app.services.agent_observability_service import get_observability_summary
 from app.services.automation_webhook_service import send_automation_event
 from app.storage.session_store import (
     get_session,
@@ -93,6 +94,14 @@ def health_check() -> Dict[str, str]:
         dict: estado básico del servicio.
     """
     return {"status": "ok"}
+
+
+@app.get("/observability/summary")
+def observability_summary() -> Dict[str, Any]:
+    """
+    Retorna un resumen local de ejecuciones del agente.
+    """
+    return get_observability_summary()
 
 
 @app.get("/lead-state/empty")
@@ -333,6 +342,14 @@ def widget_ui(request: Request):
     return templates.TemplateResponse(
         request=request,
         name="widgetVolvo.html"
+    )
+
+
+@app.get("/ui/observability", response_class=HTMLResponse)
+def observability_ui(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="observability.html"
     )
     
 @app.get("/", response_class=HTMLResponse)

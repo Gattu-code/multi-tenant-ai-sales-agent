@@ -72,3 +72,11 @@ OPENROUTER_BASE_URL = os.getenv(
 AUTOMATION_ENABLED = os.getenv("AUTOMATION_ENABLED", "false").lower() == "true"
 AUTOMATION_WEBHOOK_URL = os.getenv("AUTOMATION_WEBHOOK_URL", "")
 AUTOMATION_TIMEOUT_SECONDS = float(os.getenv("AUTOMATION_TIMEOUT_SECONDS", "5"))
+
+# =========================
+# Observability
+# =========================
+
+OBSERVABILITY_ENABLED = os.getenv("OBSERVABILITY_ENABLED", "true").lower() == "true"
+OBSERVABILITY_LOG_PROMPTS = os.getenv("OBSERVABILITY_LOG_PROMPTS", "false").lower() == "true"
+OBSERVABILITY_DIR = os.getenv("OBSERVABILITY_DIR", "data/observability")

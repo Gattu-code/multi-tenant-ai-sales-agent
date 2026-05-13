@@ -20,9 +20,14 @@ Este módulo:
 
 import json
 from typing import Any, Dict, List, Optional
+from app.config import EXTERNAL_LLM_MODEL
 from app.core.agent.context_builder import build_agent_context
 from app.core.agent.prompt_builder import build_prompt
 from app.core.config.tenant_loader import load_tenant_config
+from app.services.agent_observability_service import (
+    build_agent_run_trace,
+    record_agent_run,
+)
 from app.services.date_normalizer import resolve_appointment_date
 from app.services.contact_validation_service import get_invalid_contact_fields
 from app.services.ai_provider import generate_ai_response
@@ -431,6 +436,20 @@ def process_lead_message(
     parsed["quick_replies"] = []
 
     save_lead(session_id, parsed["updated_lead_state"])
+
+    record_agent_run(
+        trace=build_agent_run_trace(
+            tenant_id=tenant_config.tenant_id,
+            session_id=session_id,
+            user_message=user_message,
+            model=EXTERNAL_LLM_MODEL,
+            prompt=prompt,
+            assistant_reply=parsed.get("assistant_reply", ""),
+            result=parsed,
+            context_policy=context_pack.get("context_policy"),
+        ),
+        prompt=prompt,
+    )
 
     # -----------------------------
     # 12. Retorno final
