@@ -42,6 +42,40 @@
       font-size: 18px;
     }
 
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      padding: 6px;
+      display: none;
+    }
+
+    .brand-fallback {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      padding: 0 10px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #111827;
+      color: #111827;
+      background: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
     #sessionBadge {
       margin-top: 4px;
       font-size: 12px;
@@ -200,9 +234,13 @@
 
 <div class="app">
   <div class="header">
-    <div>
-      <div class="title">Premium Car AI Agent</div>
-      <div id="sessionBadge"></div>
+    <div class="brand-row">
+      <img id="brandLogo" class="brand-logo" alt="" />
+      <div id="brandFallback" class="brand-fallback"></div>
+      <div>
+        <div id="agentTitle" class="title">AI Sales Agent</div>
+        <div id="sessionBadge"></div>
+      </div>
     </div>
 
     <div class="header-actions">
@@ -247,6 +285,25 @@ const TENANT_GREETINGS = {
 
 const fallbackGreeting = "Hola, soy tu asesor virtual. ¿En qué puedo ayudarte?";
 
+const TENANT_BRANDING = {
+  volvo_colombia: {
+    title: "Volvo AI Sales Agent",
+    logo: "/static/brands/volvo.png",
+    fallback: "VOLVO"
+  },
+  caminos_eje_cafetero: {
+    title: "Caminos Chevrolet AI Sales Agent",
+    logo: "/static/brands/chevrolet.png",
+    fallback: "CHEVROLET"
+  }
+};
+
+const fallbackBranding = {
+  title: "AI Sales Agent",
+  logo: "",
+  fallback: ""
+};
+
 const STORAGE_KEYS = {
   sessionId: "premiumCarSessionId",
   messages: "premiumCarMessages",
@@ -258,6 +315,9 @@ const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const sendButton = document.getElementById("sendButton");
 const resetButton = document.getElementById("resetButton");
+const agentTitle = document.getElementById("agentTitle");
+const brandLogo = document.getElementById("brandLogo");
+const brandFallback = document.getElementById("brandFallback");
 const sessionBadge = document.getElementById("sessionBadge");
 const quickReplies = document.getElementById("quickReplies");
 
@@ -274,6 +334,51 @@ function updateSessionBadge() {
 
 function getTenantGreeting() {
   return TENANT_GREETINGS[tenantId] || fallbackGreeting;
+}
+
+function getTenantBranding() {
+  return TENANT_BRANDING[tenantId] || fallbackBranding;
+}
+
+function showBrandFallback(config) {
+  brandLogo.style.display = "none";
+
+  if (config.fallback) {
+    brandFallback.innerText = config.fallback;
+    brandFallback.style.display = "inline-flex";
+  } else {
+    brandFallback.innerText = "";
+    brandFallback.style.display = "none";
+  }
+}
+
+function updateBranding() {
+  const config = getTenantBranding();
+
+  agentTitle.innerText = config.title;
+  document.title = config.title;
+
+  brandLogo.removeAttribute("src");
+  brandLogo.style.display = "none";
+  brandFallback.style.display = "none";
+  brandFallback.innerText = "";
+
+  if (!config.logo) {
+    showBrandFallback(config);
+    return;
+  }
+
+  brandLogo.onload = () => {
+    brandFallback.style.display = "none";
+    brandLogo.style.display = "block";
+  };
+
+  brandLogo.onerror = () => {
+    showBrandFallback(config);
+  };
+
+  brandLogo.alt = config.fallback || config.title;
+  brandLogo.src = config.logo;
 }
 
 function getOrCreateSessionId() {
@@ -572,6 +677,7 @@ input.addEventListener("keydown", function(e) {
   }
 });
 
+updateBranding();
 updateSessionBadge();
 restoreMessages();
 input.focus();

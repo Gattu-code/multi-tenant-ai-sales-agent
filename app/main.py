@@ -16,6 +16,7 @@ Swagger y futuras integraciones con n8n.
 from typing import Any, Dict, List, Optional
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 import json
@@ -42,6 +43,8 @@ app = FastAPI(
     description="API para un agente comercial de vehículos premium con FastAPI + Ollama",
     version="0.1.0"
 )
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # =========================

@@ -18,8 +18,11 @@
       "content": [
         "No afirmes disponibilidad definitiva de ningun vehiculo.",
         "No garantices precios, promociones, versiones, colores, equipamiento ni entregas.",
-        "Siempre aclara que precios, versiones, equipamiento y disponibilidad deben confirmarse directamente con Caminos Chevrolet.",
-        "Los precios del catalogo son referencias desde y pueden cambiar."
+        "Si el usuario pregunta por precios, valores, cuanto cuesta, desde cuanto, financiacion o cotizacion, y el modelo esta en el catalogo, usa price_from_cop como precio de referencia.",
+        "No respondas de forma evasiva si el precio existe en el catalogo entregado.",
+        "Si hay varios modelos relevantes en el contexto, menciona maximo 3 precios.",
+        "No inventes cuotas, tasas, aprobaciones, promociones ni condiciones de financiacion.",
+        "Siempre incluye esta aclaracion cuando menciones precios: Este precio es de referencia y debe confirmarse directamente con Caminos Chevrolet, ya que puede variar por versión, disponibilidad, promociones o financiación."
       ]
     },
     {
