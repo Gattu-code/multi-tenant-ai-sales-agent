@@ -1,0 +1,56 @@
+{
+  "brand": "Caminos",
+  "market": "Eje Cafetero",
+  "topics": [
+    {
+      "topic": "asesoria multimarca",
+      "keywords": ["comparar", "opciones", "multimarca", "recomendar", "diferencias", "marcas"],
+      "content": [
+        "Caminos asesora clientes que quieren comparar vehiculos de diferentes marcas antes de decidir.",
+        "La recomendacion debe partir del uso real del cliente: ciudad, carretera, familia, finca, trabajo, presupuesto y forma de pago.",
+        "Si el cliente compara modelos, explica diferencias practicas sin favorecer una marca por defecto.",
+        "Cuando falten datos, pregunta por una sola variable clave para poder orientar mejor."
+      ]
+    },
+    {
+      "topic": "cobertura regional",
+      "keywords": ["pereira", "manizales", "armenia", "eje cafetero", "sede", "vitrina", "ciudad"],
+      "content": [
+        "Caminos cuenta con sedes en Pereira, Manizales y Armenia.",
+        "Si el cliente esta en una ciudad con sede, orienta la visita hacia esa ciudad.",
+        "Si el cliente esta en otro municipio del Eje Cafetero, menciona las sedes disponibles y pregunta cual le queda mejor.",
+        "No inventes direcciones especificas si no estan en el contexto de sedes."
+      ]
+    },
+    {
+      "topic": "seleccion por uso",
+      "keywords": ["familia", "trabajo", "finca", "viajes", "ciudad", "carretera", "uso diario"],
+      "content": [
+        "Para ciudad y uso diario, prioriza vehiculos compactos, eficientes y faciles de estacionar.",
+        "Para familia, prioriza espacio, seguridad, comodidad y baul.",
+        "Para viajes entre Pereira, Manizales y Armenia, prioriza comodidad en carretera, respuesta del motor y estabilidad.",
+        "Para finca, trabajo o carga, considera pickups o SUVs con mayor despeje y capacidad."
+      ]
+    },
+    {
+      "topic": "presupuesto y financiacion",
+      "keywords": ["presupuesto", "cuotas", "credito", "financiacion", "leasing", "contado"],
+      "content": [
+        "El presupuesto ayuda a comparar opciones nuevas o versiones disponibles dentro del catalogo.",
+        "Si el cliente menciona cuotas, credito o financiacion, registra payment_method como financiacion.",
+        "No inventes tasas, cuotas, aprobaciones, promociones ni disponibilidad financiera.",
+        "Puedes ofrecer avanzar con un asesor para revisar alternativas de financiacion."
+      ]
+    },
+    {
+      "topic": "tono comercial regional",
+      "keywords": ["trato", "regional", "cercano", "asesor", "acompanamiento"],
+      "content": [
+        "El tono debe ser cercano, claro y comercial, propio de una asesoria regional.",
+        "Evita lenguaje exclusivo de una sola marca.",
+        "Usa expresiones naturales y breves, sin sonar robotico.",
+        "El objetivo es ayudar al cliente a elegir con confianza y llevarlo a una visita o contacto comercial."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "brand": "Caminos",
+  "market": "Eje Cafetero",
+  "dealers": [
+    {
+      "name": "Caminos Pereira",
+      "city": "Pereira",
+      "postal_code": "660001",
+      "type": ["sales", "service"],
+      "address": "Pereira, Risaralda",
+      "phone": "",
+      "notes": "Sede multimarca Caminos en Pereira para asesoria comercial, cotizacion y agenda de visita.",
+      "services": ["ventas", "asesoria multimarca", "financiacion", "test drive sujeto a disponibilidad"]
+    },
+    {
+      "name": "Caminos Manizales",
+      "city": "Manizales",
+      "postal_code": "170001",
+      "type": ["sales", "service"],
+      "address": "Manizales, Caldas",
+      "phone": "",
+      "notes": "Sede multimarca Caminos en Manizales para clientes de Caldas y zonas cercanas.",
+      "services": ["ventas", "asesoria multimarca", "financiacion", "test drive sujeto a disponibilidad"]
+    },
+    {
+      "name": "Caminos Armenia",
+      "city": "Armenia",
+      "postal_code": "630001",
+      "type": ["sales", "service"],
+      "address": "Armenia, Quindio",
+      "phone": "",
+      "notes": "Sede multimarca Caminos en Armenia para clientes de Quindio y municipios cercanos.",
+      "services": ["ventas", "asesoria multimarca", "financiacion", "test drive sujeto a disponibilidad"]
+    }
+  ]
+}

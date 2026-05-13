@@ -1,0 +1,16 @@
+{
+  "tenant_id": "caminos_eje_cafetero",
+  "tenant_name": "Caminos Eje Cafetero",
+  "business_type": "multi_brand_dealer",
+  "region": "eje_cafetero",
+  "brand": "caminos",
+  "brand_name": "Caminos",
+  "market": "eje_cafetero",
+  "market_name": "Eje Cafetero",
+  "timezone": "America/Bogota",
+  "currency": "COP",
+  "prompt_path": "app/prompts/caminos_eje_cafetero_prompt.txt",
+  "catalog_path": "data/catalogs/caminos_eje_cafetero.json",
+  "dealers_path": "data/dealers/caminos_eje_cafetero.json",
+  "brand_knowledge_path": "data/brand_knowledge/caminos_eje_cafetero.json"
+}

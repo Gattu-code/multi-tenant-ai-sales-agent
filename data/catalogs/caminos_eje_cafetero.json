@@ -1,0 +1,200 @@
+[
+  {
+    "brand": "Renault",
+    "market": "Eje Cafetero",
+    "model": "Duster",
+    "body_type": "SUV",
+    "segment": "SUV compacta",
+    "fuel_type": "gasolina",
+    "is_fully_electric": false,
+    "price_from_cop": 93000000,
+    "range_km": null,
+    "power_hp": 154,
+    "seating_capacity": 5,
+    "versions": [
+      {
+        "name": "Intens",
+        "range_level": "media",
+        "power_level": "medio",
+        "focus": "uso mixto ciudad-carretera"
+      },
+      {
+        "name": "Outsider",
+        "range_level": "media",
+        "power_level": "medio",
+        "focus": "familia y viajes cortos"
+      }
+    ],
+    "best_for": ["familia pequena", "ciudad", "carretera", "presupuesto controlado", "uso diario"],
+    "key_strengths": ["altura al piso", "espacio interior", "costo de mantenimiento razonable", "versatilidad"],
+    "family_fit": "alta",
+    "urban_fit": "alta",
+    "travel_fit": "media-alta",
+    "premium_level": "medio",
+    "description": "SUV compacta versatil para familias pequenas o usuarios que combinan ciudad con trayectos por carretera en el Eje Cafetero."
+  },
+  {
+    "brand": "Chevrolet",
+    "market": "Eje Cafetero",
+    "model": "Tracker",
+    "body_type": "SUV",
+    "segment": "SUV compacta urbana",
+    "fuel_type": "gasolina turbo",
+    "is_fully_electric": false,
+    "price_from_cop": 98000000,
+    "range_km": null,
+    "power_hp": 130,
+    "seating_capacity": 5,
+    "versions": [
+      {
+        "name": "LT",
+        "range_level": "media",
+        "power_level": "medio",
+        "focus": "ciudad y conectividad"
+      },
+      {
+        "name": "Premier",
+        "range_level": "alta",
+        "power_level": "medio",
+        "focus": "equipamiento y seguridad"
+      }
+    ],
+    "best_for": ["ciudad", "parejas", "familia pequena", "primer SUV", "conectividad"],
+    "key_strengths": ["motor turbo eficiente", "tamano urbano", "equipamiento", "tecnologia"],
+    "family_fit": "media-alta",
+    "urban_fit": "muy alta",
+    "travel_fit": "media",
+    "premium_level": "medio",
+    "description": "SUV compacta urbana con buen balance entre tecnologia, consumo y facilidad de uso diario."
+  },
+  {
+    "brand": "Mazda",
+    "market": "Eje Cafetero",
+    "model": "CX-30",
+    "body_type": "SUV",
+    "segment": "SUV compacta premium",
+    "fuel_type": "gasolina",
+    "is_fully_electric": false,
+    "price_from_cop": 125000000,
+    "range_km": null,
+    "power_hp": 153,
+    "seating_capacity": 5,
+    "versions": [
+      {
+        "name": "Touring",
+        "range_level": "media",
+        "power_level": "medio",
+        "focus": "diseno y confort"
+      },
+      {
+        "name": "Grand Touring",
+        "range_level": "alta",
+        "power_level": "medio",
+        "focus": "acabados y seguridad"
+      }
+    ],
+    "best_for": ["ciudad", "conduccion refinada", "parejas", "familia pequena", "diseno"],
+    "key_strengths": ["calidad interior", "manejo agradable", "seguridad", "diseno"],
+    "family_fit": "media",
+    "urban_fit": "alta",
+    "travel_fit": "media-alta",
+    "premium_level": "medio-alto",
+    "description": "SUV compacta con enfoque en diseno, manejo y acabados, ideal para quien quiere una experiencia mas refinada sin ir a un SUV grande."
+  },
+  {
+    "brand": "Toyota",
+    "market": "Eje Cafetero",
+    "model": "Corolla Cross Hybrid",
+    "body_type": "SUV",
+    "segment": "SUV hibrida familiar",
+    "fuel_type": "hibrido",
+    "is_fully_electric": false,
+    "price_from_cop": 145000000,
+    "range_km": null,
+    "power_hp": 121,
+    "seating_capacity": 5,
+    "versions": [
+      {
+        "name": "XEI Hybrid",
+        "range_level": "alta",
+        "power_level": "medio",
+        "focus": "eficiencia y familia"
+      }
+    ],
+    "best_for": ["familia", "bajo consumo", "ciudad", "viajes", "confiabilidad"],
+    "key_strengths": ["tecnologia hibrida", "consumo eficiente", "confiabilidad", "espacio"],
+    "family_fit": "alta",
+    "urban_fit": "alta",
+    "travel_fit": "alta",
+    "premium_level": "medio-alto",
+    "description": "SUV hibrida familiar para clientes que priorizan consumo, confiabilidad y comodidad en ciudad y carretera."
+  },
+  {
+    "brand": "Kia",
+    "market": "Eje Cafetero",
+    "model": "Sportage",
+    "body_type": "SUV",
+    "segment": "SUV mediana familiar",
+    "fuel_type": "gasolina",
+    "is_fully_electric": false,
+    "price_from_cop": 155000000,
+    "range_km": null,
+    "power_hp": 154,
+    "seating_capacity": 5,
+    "versions": [
+      {
+        "name": "Vibrant",
+        "range_level": "media",
+        "power_level": "medio",
+        "focus": "familia y equipamiento"
+      },
+      {
+        "name": "Zenith",
+        "range_level": "alta",
+        "power_level": "medio",
+        "focus": "confort y seguridad"
+      }
+    ],
+    "best_for": ["familia", "viajes", "espacio", "equipamiento", "SUV mediana"],
+    "key_strengths": ["espacio interior", "confort", "diseno", "equipamiento"],
+    "family_fit": "muy alta",
+    "urban_fit": "media-alta",
+    "travel_fit": "alta",
+    "premium_level": "medio-alto",
+    "description": "SUV mediana con buen espacio y equipamiento para familias que viajan entre ciudades del Eje Cafetero."
+  },
+  {
+    "brand": "Nissan",
+    "market": "Eje Cafetero",
+    "model": "Frontier",
+    "body_type": "pickup",
+    "segment": "pickup mediana",
+    "fuel_type": "diesel",
+    "is_fully_electric": false,
+    "price_from_cop": 165000000,
+    "range_km": null,
+    "power_hp": 188,
+    "seating_capacity": 5,
+    "versions": [
+      {
+        "name": "XE",
+        "range_level": "media",
+        "power_level": "alto",
+        "focus": "trabajo y finca"
+      },
+      {
+        "name": "LE",
+        "range_level": "alta",
+        "power_level": "alto",
+        "focus": "trabajo, familia y confort"
+      }
+    ],
+    "best_for": ["trabajo", "finca", "carga", "carretera", "uso rural"],
+    "key_strengths": ["capacidad de carga", "motor diesel", "robustez", "doble proposito"],
+    "family_fit": "media",
+    "urban_fit": "media",
+    "travel_fit": "alta",
+    "premium_level": "medio",
+    "description": "Pickup robusta para clientes que necesitan trabajo, finca o carga, manteniendo capacidad para uso familiar."
+  }
+]
