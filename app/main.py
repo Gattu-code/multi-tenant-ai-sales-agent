@@ -15,11 +15,13 @@ Swagger y futuras integraciones con n8n.
 
 from typing import Any, Dict, List, Optional
 
-from fastapi import FastAPI
+from fastapi import BackgroundTasks, FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 import json
 from app.agents.premium_agent import process_lead_message
+from app.core.config.tenant_loader import DEFAULT_TENANT_ID
+from app.services.automation_webhook_service import send_automation_event
 from app.storage.session_store import (
     get_session,
     update_session,
@@ -66,12 +68,16 @@ class LeadAgentRequest(BaseModel):
         conversation_history (list[dict]):
             Historial conversacional previo.
     """
-    session_id: str
-    user_message: str
+    session_id: Optional[str] = None
+    sessionId: Optional[str] = None
+    user_message: Optional[str] = None
+    message: Optional[str] = None
+    chatInput: Optional[str] = None
     lead_state: Optional[Dict[str, Any]] = None
     catalog_context: str = ""
     conversation_history: List[Dict[str, str]] = Field(default_factory=list)
     tenant_id: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
 
 
 # =========================
@@ -156,7 +162,10 @@ def empty_lead_state() -> Dict[str, Any]:
 
 
 @app.post("/premium-agent")
-def premium_agent(payload: LeadAgentRequest) -> Dict[str, Any]:
+def premium_agent(
+    payload: LeadAgentRequest,
+    background_tasks: BackgroundTasks,
+) -> Dict[str, Any]:
     """
     Endpoint principal del agente comercial premium.
 
@@ -177,7 +186,17 @@ def premium_agent(payload: LeadAgentRequest) -> Dict[str, Any]:
     # -----------------------------
     # 1. Obtener o crear sesión
     # -----------------------------
-    session = get_session(payload.session_id)
+    session_id = payload.session_id or payload.sessionId
+    user_message = payload.user_message or payload.message or payload.chatInput or ""
+    tenant_id = payload.tenant_id or DEFAULT_TENANT_ID
+
+    if not session_id:
+        raise HTTPException(status_code=400, detail="session_id is required.")
+
+    if not user_message.strip():
+        raise HTTPException(status_code=400, detail="user_message is required.")
+
+    session = get_session(session_id)
 
     # -----------------------------
     # 2. Resolver estado del lead
@@ -210,9 +229,9 @@ def premium_agent(payload: LeadAgentRequest) -> Dict[str, Any]:
     # 4. Procesar mensaje
     # -----------------------------
     result = process_lead_message(
-        tenant_id=payload.tenant_id,
-        session_id=payload.session_id,
-        user_message=payload.user_message,
+        tenant_id=tenant_id,
+        session_id=session_id,
+        user_message=user_message,
         lead_state=lead_state,
         conversation_history=conversation_history,
         catalog_context=payload.catalog_context,
@@ -225,7 +244,7 @@ def premium_agent(payload: LeadAgentRequest) -> Dict[str, Any]:
 
     updated_history.append({
         "role": "user",
-        "content": payload.user_message,
+        "content": user_message,
     })
 
     updated_history.append({
@@ -240,9 +259,18 @@ def premium_agent(payload: LeadAgentRequest) -> Dict[str, Any]:
     # - lead_state en memoria,
     # - conversation_history en data/conversations.json.
     update_session(
-        payload.session_id,
+        session_id,
         result["updated_lead_state"],
         updated_history,
+    )
+
+    background_tasks.add_task(
+        send_automation_event,
+        tenant_id=tenant_id,
+        session_id=session_id,
+        user_message=user_message,
+        result=result,
+        metadata=payload.metadata,
     )
 
     return result

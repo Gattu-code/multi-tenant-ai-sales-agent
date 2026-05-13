@@ -221,23 +221,21 @@
 
 <script>
 /*
-  Chat de prueba conectado a n8n.
+  Chat de prueba conectado directo a FastAPI.
 
   Producción local:
-    http://localhost:5678/webhook/premium-car-agent
+    /premium-agent
 
-  Test webhook:
-    http://localhost:5678/webhook-test/premium-car-agent
+  Test endpoint:
+    /premium-agent
 */
 const IS_LOCAL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1";
 
-const WEBHOOK_URL =
-  localStorage.getItem("premiumCarWebhookUrl") ||
-  (IS_LOCAL
-    ? "http://localhost:5678/webhook/premium-car-agent"
-    : "/webhook/premium-car-agent");
+const AGENT_URL =
+  localStorage.getItem("premiumCarAgentUrl") ||
+  "/premium-agent";
 
 const STORAGE_KEYS = {
   sessionId: "premiumCarSessionId",
@@ -462,7 +460,9 @@ async function sendMessage() {
   try {
     const payload = {
       session_id: state.sessionId,
+      user_message: message,
       message: message,
+      tenant_id: "volvo_colombia",
 
       // -----------------------------
       // Estado acumulado enviado al backend
@@ -474,11 +474,11 @@ async function sendMessage() {
       catalog_context: "",
       metadata: {
         source: "chat-html",
-        mode: "full-page-test-chat"
+        mode: "direct-fastapi-chat"
       }
     };
 
-    const res = await fetch(WEBHOOK_URL, {
+    const res = await fetch(AGENT_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -493,7 +493,7 @@ async function sendMessage() {
     }
 
     if (!text) {
-      throw new Error("Respuesta vacía desde n8n.");
+      throw new Error("Respuesta vacía desde el agente.");
     }
 
     let data;

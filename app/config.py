@@ -64,3 +64,11 @@ OPENROUTER_BASE_URL = os.getenv(
     "OPENROUTER_BASE_URL",
     "https://openrouter.ai/api/v1"
 )
+
+# =========================
+# Automation Webhook
+# =========================
+
+AUTOMATION_ENABLED = os.getenv("AUTOMATION_ENABLED", "false").lower() == "true"
+AUTOMATION_WEBHOOK_URL = os.getenv("AUTOMATION_WEBHOOK_URL", "")
+AUTOMATION_TIMEOUT_SECONDS = float(os.getenv("AUTOMATION_TIMEOUT_SECONDS", "5"))

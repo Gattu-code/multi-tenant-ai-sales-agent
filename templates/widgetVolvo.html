@@ -384,26 +384,24 @@
 
   <script>
     /*
-      Configuración n8n
+      Configuración FastAPI
 
       Producción local:
-        http://localhost:5678/webhook/premium-car-agent
+        /premium-agent
 
-      Test webhook:
-        http://localhost:5678/webhook-test/premium-car-agent
+      Test endpoint:
+        /premium-agent
 
-      Si publicas este HTML en una web externa, cambia localhost por la URL pública de n8n.
+      Si publicas este HTML en una web externa, cambia el endpoint por la URL pública de FastAPI.
       También puedes sobrescribirla desde consola:
-        localStorage.setItem("n8nWebhookUrl", "https://tu-dominio.com/webhook/premium-car-agent")
+        localStorage.setItem("volvoAgentUrl", "https://tu-dominio.com/premium-agent")
     */
     
     const IS_LOCAL =
       window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1";
 
-    const DEFAULT_WEBHOOK = IS_LOCAL
-      ? "http://localhost:5678/webhook/premium-car-agent"
-      : "/webhook/premium-car-agent";
+    const DEFAULT_AGENT_ENDPOINT = "/premium-agent";
     
     const ROUTE = "general";
     const LOAD_PREVIOUS_SESSION = false;
@@ -418,7 +416,7 @@
     };
 
     const state = {
-      webhookUrl: localStorage.getItem("n8nWebhookUrl") || DEFAULT_WEBHOOK,
+      agentUrl: localStorage.getItem("volvoAgentUrl") || DEFAULT_AGENT_ENDPOINT,
       sessionId: getOrCreateSessionId(),
       hasLoadedSession: false,
       step: localStorage.getItem(STORAGE_KEYS.step) || "start",
@@ -601,7 +599,7 @@
 
       try {
         const payload = {
-          // Compatibilidad con el flujo n8n anterior
+          // Compatibilidad con payloads anteriores
           action: "sendMessage",
           sessionId: state.sessionId,
           route: ROUTE,
@@ -609,7 +607,9 @@
 
           // Compatibilidad con Normalize Input / FastAPI actual
           session_id: state.sessionId,
+          user_message: text,
           message: text,
+          tenant_id: "volvo_colombia",
           lead_state: state.leadState || {},
           conversation_history: state.conversationHistory.slice(-10),
           catalog_context: "",
@@ -617,7 +617,7 @@
           metadata: {
             source: "widgetvolvo",
             userId: "",
-            mode: "hybrid_input_and_quick_replies",
+            mode: "direct_fastapi_widget",
             inputType: inputType,
             currentStep: currentStep,
             nextStep: nextStep,
@@ -625,7 +625,7 @@
           }
         };
 
-        const data = await postToN8n(payload);
+        const data = await postToAgent(payload);
 
         removeProcessingMessage();
 
@@ -649,7 +649,7 @@
       } catch (error) {
         removeProcessingMessage();
         console.error("Widget error:", error);
-        addMessage("system", "No se pudo conectar con n8n. Verifica que el workflow esté activo y que la URL del webhook sea correcta.");
+        addMessage("system", "No se pudo conectar con el agente. Verifica que la API esté activa.");
         keepChatOpen();
         return "";
       }
@@ -662,19 +662,21 @@
         session_id: state.sessionId,
         route: ROUTE,
         chatInput: "",
+        user_message: "",
         message: "",
+        tenant_id: "volvo_colombia",
         lead_state: state.leadState || {},
         conversation_history: state.conversationHistory.slice(-10),
         catalog_context: "",
         metadata: {
           source: "widgetvolvo",
           userId: "",
-          mode: "hybrid_input_and_quick_replies"
+          mode: "direct_fastapi_widget"
         }
       };
 
       try {
-        const data = await postToN8n(payload);
+        const data = await postToAgent(payload);
         const output = extractOutput(data);
 
         if (output) {
@@ -692,8 +694,8 @@
       }
     }
 
-    async function postToN8n(payload) {
-      const response = await fetch(state.webhookUrl, {
+    async function postToAgent(payload) {
+      const response = await fetch(state.agentUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
