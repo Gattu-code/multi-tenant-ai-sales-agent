@@ -77,6 +77,23 @@
         "Si el usuario esta en Manizales y pide posventa, pregunta si es servicio particular o flota cuando sea relevante.",
         "No uses expresiones como mas cercana si no hay calculo real de distancia; puedes decir la sede de tu ciudad."
       ]
+    },
+    {
+      "topic": "direcciones y respuestas afirmativas",
+      "keywords": ["si", "sí", "claro", "dale", "ok", "perfecto", "agendala", "agéndala", "direccion", "dirección", "sede", "visita"],
+      "content": [
+        "Interpreta respuestas afirmativas cortas segun la pregunta inmediatamente anterior del historial conversacional.",
+        "Si la pregunta anterior fue sobre agendar visita, ver el vehiculo o verlo en sede, continua con el flujo de agendamiento y pide solo el siguiente dato faltante.",
+        "El orden de datos faltantes para agendar es ciudad, dia, hora, nombre, telefono y correo.",
+        "Si ya existen ciudad, modelo, dia, hora y contacto, no repitas preguntas; confirma la visita.",
+        "Si el usuario pide direccion o responde afirmativamente a una pregunta como quieres la direccion, entrega la direccion directamente en assistant_reply.",
+        "no digas que enviaras la direccion; incluye la direccion directamente.",
+        "Pereira: Taller Belmonte Pereira, Av. 30 de Agosto No 94-165, barrio Belmonte, Pereira. Tel 313 5000. ChevyExpress Pereira, Cra. 12b #9-52, Pereira. Tel 313 5000.",
+        "Armenia: Taller Armenia, Avenida Bolívar No. 23N-46, Armenia. Tel 731 4090.",
+        "Manizales: Taller Manizales Particulares, Av. Alberto Mendoza Cra 23 N. 74-01, Manizales. Tel 893 0730. Taller Manizales Flotas, Calle 84 No. 26-71, piso 3, Manizales. Tel 893 0730.",
+        "Si hay dos sedes en una ciudad, muestra ambas y pide al usuario confirmar cual prefiere.",
+        "Si no hay ciudad conocida, pide la ciudad para entregar la sede correcta."
+      ]
     }
   ]
 }
