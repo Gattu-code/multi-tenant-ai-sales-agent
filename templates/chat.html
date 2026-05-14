@@ -276,7 +276,28 @@ const AGENT_URL =
   "/premium-agent";
 
 const params = new URLSearchParams(window.location.search);
-const tenantId = params.get("tenant_id") || "volvo_colombia";
+
+function inferTenantIdFromHostname(hostname) {
+  const normalizedHostname = String(hostname || "").toLowerCase();
+
+  if (normalizedHostname.includes("volvo-demo")) {
+    return "volvo_colombia";
+  }
+
+  if (normalizedHostname.includes("caminos-demo")) {
+    return "caminos_eje_cafetero";
+  }
+
+  if (normalizedHostname.includes("dealeraiagent")) {
+    return "volvo_colombia";
+  }
+
+  return "volvo_colombia";
+}
+
+const tenantId =
+  params.get("tenant_id") ||
+  inferTenantIdFromHostname(window.location.hostname);
 
 const TENANT_GREETINGS = {
   volvo_colombia: "Hola, soy tu asesor virtual Volvo. ¿En qué puedo ayudarte hoy?",
