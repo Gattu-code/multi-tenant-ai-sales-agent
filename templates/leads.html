@@ -64,6 +64,18 @@
       white-space: nowrap;
     }
 
+    .tenant-badge {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--navy);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+    }
+
     .stats {
       display: grid;
       grid-template-columns: repeat(4, minmax(160px, 1fr));
@@ -370,7 +382,10 @@
       <p>AI Lead Qualification Agent · Conversaciones convertidas en oportunidades comerciales priorizadas</p>
     </div>
 
-    <div class="badge-ai">⚡ Premium Car AI Agent</div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <div class="tenant-badge" id="tenantBadge">Tenant: todos</div>
+      <div class="badge-ai">⚡ Premium Car AI Agent</div>
+    </div>
   </header>
 
   <section class="stats">
@@ -443,6 +458,25 @@
     let allLeads = [];
     let currentFilter = "all";
     let currentCity = "all";
+    const params = new URLSearchParams(window.location.search);
+
+    function inferTenantIdFromHostname(hostname) {
+      const normalizedHostname = String(hostname || "").toLowerCase();
+
+      if (normalizedHostname.includes("volvo-demo")) return "volvo_colombia";
+      if (normalizedHostname.includes("caminos-demo")) return "caminos_eje_cafetero";
+
+      return "";
+    }
+
+    const tenantId =
+      params.get("tenant_id") ||
+      inferTenantIdFromHostname(window.location.hostname) ||
+      "";
+
+    const leadsUrl = tenantId
+      ? `/leads?tenant_id=${encodeURIComponent(tenantId)}`
+      : "/leads";
 
     function esc(value) {
       if (value === null || value === undefined || value === "") return "-";
@@ -686,6 +720,11 @@
       });
     }
 
+    function updateTenantBadge() {
+      const badge = document.getElementById("tenantBadge");
+      badge.textContent = tenantId ? `Tenant: ${tenantId}` : "Tenant: todos";
+    }
+
     document.querySelectorAll(".filter-btn").forEach(button => {
       button.addEventListener("click", () => {
         document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
@@ -702,7 +741,9 @@
       renderLeads();
     });
 
-    fetch("/leads")
+    updateTenantBadge();
+
+    fetch(leadsUrl)
       .then(res => res.json())
       .then(data => {
         allLeads = Array.isArray(data) ? data : [];

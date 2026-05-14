@@ -41,7 +41,7 @@ def load_leads() -> List[Dict]:
     return []
 
 
-def save_lead(session_id: str, lead_data: Dict) -> None:
+def save_lead(session_id: str, lead_data: Dict, tenant_id: str = None) -> None:
     """
     Guarda el estado del lead asociado a una sesión en el archivo JSON.
 
@@ -102,6 +102,9 @@ def save_lead(session_id: str, lead_data: Dict) -> None:
         "timestamp": datetime.utcnow().isoformat(),
         "source": "ai_agent"
     }
+
+    if tenant_id:
+        lead_data_enriched["tenant_id"] = tenant_id
 
     # -----------------------------
     # 4. Consolidar por session_id

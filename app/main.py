@@ -305,8 +305,20 @@ import json
 
 LEADS_FILE = Path("data/leads.json")
 
+def _lead_matches_tenant(lead: Dict[str, Any], tenant_id: str) -> bool:
+    if lead.get("tenant_id") == tenant_id:
+        return True
+
+    legacy_brand = str(lead.get("brand", "")).lower()
+
+    if tenant_id == "volvo_colombia" and not lead.get("tenant_id"):
+        return legacy_brand == "volvo"
+
+    return False
+
+
 @app.get("/leads")
-def get_leads():
+def get_leads(tenant_id: Optional[str] = None):
     """
     Devuelve los leads guardados en data/leads.json.
     """
@@ -314,7 +326,16 @@ def get_leads():
         return []
 
     with open(LEADS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+        leads = json.load(f)
+
+    if tenant_id:
+        return [
+            lead
+            for lead in leads
+            if _lead_matches_tenant(lead, tenant_id)
+        ]
+
+    return leads
 
 # -----------------------------
 # UI Leads
@@ -326,7 +347,7 @@ from fastapi.templating import Jinja2Templates
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/ui/leads", response_class=HTMLResponse)
-def leads_ui(request: Request):
+def leads_ui(request: Request, tenant_id: Optional[str] = None):
     return templates.TemplateResponse(
         request=request,
         name="leads.html"

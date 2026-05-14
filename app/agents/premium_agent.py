@@ -435,7 +435,11 @@ def process_lead_message(
     # Mantener este bloque facilita reactivarlas luego sin borrar la lógica.
     parsed["quick_replies"] = []
 
-    save_lead(session_id, parsed["updated_lead_state"])
+    save_lead(
+        session_id,
+        parsed["updated_lead_state"],
+        tenant_id=tenant_config.tenant_id,
+    )
 
     record_agent_run(
         trace=build_agent_run_trace(
