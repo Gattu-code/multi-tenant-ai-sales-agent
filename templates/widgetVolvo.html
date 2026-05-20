@@ -324,29 +324,12 @@
         margin-bottom: 16px;
         color: #6f6f6f;
       ">
-        VOLVO AI DEMO
+        AI Agentic Sales DEMO
       </div>
 
-      <h1 style="
-        font-size: 42px;
-        font-weight: 400;
-        line-height: 1.1;
-        margin: 0 0 18px;
-        color: #111111;
-      ">
-        Asesor virtual para vehículos premium
-      </h1>
+     <h1 id="hero-title"></h1>
 
-      <p style="
-        font-size: 17px;
-        line-height: 1.6;
-        color: #555555;
-        margin: 0;
-      ">
-        Esta demo muestra un widget conversacional que ayuda al cliente a explorar modelos Volvo,
-        recibir orientación según su perfil y avanzar hacia una visita o prueba de manejo.
-        Puedes iniciar la conversación desde el botón flotante ubicado en la esquina inferior derecha.
-      </p>
+<p class="hero-text" id="hero-description"></p>
     </section>
   </main>
 
@@ -402,17 +385,59 @@
       window.location.hostname === "127.0.0.1";
 
     const DEFAULT_AGENT_ENDPOINT = "/premium-agent";
+
+    const params = new URLSearchParams(window.location.search);
+
+function inferTenantIdFromHostname(hostname) {
+  const host = String(hostname || "").toLowerCase();
+
+  if (host.includes("caminos-demo")) return "caminos_eje_cafetero";
+  if (host.includes("volvo-demo")) return "volvo_colombia";
+
+  return "volvo_colombia";
+}
+
+const tenantId =
+  params.get("tenant_id") ||
+  inferTenantIdFromHostname(window.location.hostname);
+
+const TENANT_WIDGET = {
+  volvo_colombia: {
+    brand: "VOLVO",
+    title: "Asesor virtual",
+    greeting: "Hola, soy tu asesor virtual, bienvenido a Volvo.\n¿En qué puedo ayudarte hoy?",
+    source: "widget_volvo"
+  },
+  caminos_eje_cafetero: {
+    brand: "CAMINOS",
+    title: "Asesor Chevrolet",
+    greeting: "Hola, soy tu asesor virtual de Caminos Chevrolet.\n¿Qué tipo de vehículo estás buscando hoy?",
+    source: "widget_caminos"
+  }
+};
+
+    const tenantConfig = TENANT_WIDGET[tenantId] || TENANT_WIDGET.volvo_colombia;
     
+    tenantConfig.heroTitle =
+  tenantId === "caminos_eje_cafetero"
+    ? "Asesor virtual para concesionario Chevrolet"
+    : "Asesor virtual para vehículos premium";
+
+tenantConfig.heroDescription =
+  tenantId === "caminos_eje_cafetero"
+    ? "Esta demo muestra un widget conversacional orientado a concesionarios Chevrolet para calificar clientes, resolver dudas y apoyar el flujo comercial."
+    : "Esta demo muestra un widget conversacional que ayuda al cliente a explorar modelos Volvo, recibir orientación según su perfil y avanzar hacia una visita o prueba de manejo.";
+
     const ROUTE = "general";
     const LOAD_PREVIOUS_SESSION = false;
 
     const STORAGE_KEYS = {
-      sessionId: "n8nChatSessionId",
-      messages: "volvoWidgetMessages",
-      step: "volvoWidgetStep",
-      open: "volvoWidgetOpen",
-      leadState: "volvoLeadState",
-      conversationHistory: "volvoConversationHistory"
+      sessionId: `${tenantId}_widget_session_id`,
+      messages: `${tenantId}_widget_messages`,
+      step: `${tenantId}_widget_step`,
+      open: `${tenantId}_widget_open`,
+      leadState: `${tenantId}_widget_lead_state`,
+      conversationHistory: `${tenantId}_widget_conversation_history`
     };
 
     const state = {
@@ -462,7 +487,7 @@
     };
 
     const stepIntro = {
-      start: "Hola, soy tu asesor virtual, bienvenido a Volvo. \n¿En qué puedo ayudarte hoy?",
+      start: tenantConfig.greeting,
       interest: "Perfecto. También puedes contarme un poco más o elegir una de estas opciones.",
       budget: "Entendido. ¿Cuál es tu presupuesto aproximado?",
       timeframe: "Gracias. ¿En qué plazo estás pensando comprar?",
@@ -609,13 +634,13 @@
           session_id: state.sessionId,
           user_message: text,
           message: text,
-          tenant_id: "volvo_colombia",
+          tenant_id: tenantId,
           lead_state: state.leadState || {},
           conversation_history: state.conversationHistory.slice(-10),
           catalog_context: "",
 
           metadata: {
-            source: "widgetvolvo",
+            source: tenantConfig.source,
             userId: "",
             mode: "direct_fastapi_widget",
             inputType: inputType,
@@ -664,12 +689,12 @@
         chatInput: "",
         user_message: "",
         message: "",
-        tenant_id: "volvo_colombia",
+        tenant_id: tenantId,
         lead_state: state.leadState || {},
         conversation_history: state.conversationHistory.slice(-10),
         catalog_context: "",
         metadata: {
-          source: "widgetvolvo",
+          source: tenantConfig.source,
           userId: "",
           mode: "direct_fastapi_widget"
         }
@@ -928,6 +953,15 @@
         lastBotMessage.remove();
       }
     }
+
+    document.querySelector(".chat-brand").innerText = tenantConfig.brand;
+    document.querySelector(".chat-title").innerText = tenantConfig.title;
+
+    document.getElementById("hero-title").innerText =
+      tenantConfig.heroTitle;
+
+    document.getElementById("hero-description").innerText =
+      tenantConfig.heroDescription;
 
     window.addEventListener("error", (event) => {
       console.error("Widget error:", event.error || event.message);
