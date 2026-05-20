@@ -9,7 +9,10 @@
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(180deg,#f8fafc,#eef2f7);
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.10), transparent 30%),
+        linear-gradient(180deg,#f8fafc,#eef2f7);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,13 +27,17 @@
       border-radius: 20px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      box-shadow:
+        0 20px 45px rgba(15,23,42,0.08),
+        0 2px 6px rgba(15,23,42,0.04);
       overflow: hidden;
     }
 
     .header {
       padding: 20px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #e2e8f0;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.85);
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -135,7 +142,7 @@
     }
 
     .message.user {
-      background: #111827;
+      background: linear-gradient(135deg,#2563eb,#7c3aed);
       color: white;
       border-bottom-right-radius: 4px;
     }
@@ -288,8 +295,11 @@ function inferTenantIdFromHostname(hostname) {
     return "caminos_eje_cafetero";
   }
 
-  if (normalizedHostname.includes("dealeraiagent")) {
-    return "volvo_colombia";
+  if (
+  normalizedHostname.includes("dealer") ||
+  normalizedHostname.includes("caminos")
+  ) {
+    return "dealer_multi_brand";
   }
 
   return "volvo_colombia";
@@ -300,17 +310,17 @@ const tenantId =
   inferTenantIdFromHostname(window.location.hostname);
 
 const TENANT_GREETINGS = {
-  volvo_colombia: "Hola, soy tu asesor virtual Volvo. ¿En qué puedo ayudarte hoy?",
-  caminos_eje_cafetero: "Hola, soy tu asesor virtual de Caminos Chevrolet. ¿Qué tipo de vehículo estás buscando hoy?"
+  volvo_colombia: "Hola, soy tu asesor virtual. \n¿En qué puedo ayudarte hoy?",
+  caminos_eje_cafetero: "Hola, soy tu asesor virtual de Caminos Chevrolet.\n ¿Qué tipo de vehículo estás buscando hoy?"
 };
 
 const fallbackGreeting = "Hola, soy tu asesor virtual. ¿En qué puedo ayudarte?";
 
 const TENANT_BRANDING = {
   volvo_colombia: {
-    title: "Volvo AI Sales Agent",
+    title: "Dealer AI Agent",
     logo: "/static/brands/volvo.png",
-    fallback: "VOLVO"
+    fallback: "DEALER AI"
   },
   caminos_eje_cafetero: {
     title: "Caminos Chevrolet AI Sales Agent",

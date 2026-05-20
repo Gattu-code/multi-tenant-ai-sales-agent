@@ -3,130 +3,255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Premium Car AI Agent - Demos</title>
+  <title>Dealer AI Agent - Demos</title>
 
   <style>
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(180deg, #f8fafc, #eef2f7);
+
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.10), transparent 30%),
+        linear-gradient(180deg, #f8fafc, #eef2f7);
+
       color: #111827;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
     }
 
     .container {
-      width: 90%;
-      max-width: 900px;
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 36px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 980px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(14px);
+
+      border: 1px solid rgba(255,255,255,0.6);
+
+      border-radius: 28px;
+      padding: 42px;
+
+      box-shadow:
+        0 20px 45px rgba(15,23,42,0.08),
+        0 2px 6px rgba(15,23,42,0.04);
     }
 
     .eyebrow {
       font-size: 13px;
-      letter-spacing: 4px;
+      letter-spacing: 6px;
       text-transform: uppercase;
-      color: #6b7280;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      font-size: 32px;
+      color: #6366f1;
+      margin-bottom: 14px;
       font-weight: 700;
     }
 
+    h1 {
+      margin: 0 0 12px;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .gradient-line {
+      width: 90px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,#2563eb,#7c3aed);
+      margin-bottom: 22px;
+    }
+
     .subtitle {
-      color: #6b7280;
-      margin-bottom: 32px;
-      line-height: 1.5;
+      color: #64748b;
+      margin-bottom: 36px;
+      line-height: 1.7;
+      font-size: 17px;
+      max-width: 720px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
     }
 
     .card {
       border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 20px;
+      border-radius: 22px;
+      padding: 26px;
       text-decoration: none;
       color: #111827;
       background: #ffffff;
-      transition: all 0.15s ease;
+
+      transition: all 0.2s ease;
+
+      box-shadow:
+        0 10px 24px rgba(15,23,42,0.04),
+        0 2px 4px rgba(15,23,42,0.03);
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-      border-color: #111827;
+      transform: translateY(-4px);
+
+      box-shadow:
+        0 18px 34px rgba(15,23,42,0.08),
+        0 2px 6px rgba(15,23,42,0.04);
+
+      border-color: #6366f1;
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 18px;
+
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .blue {
+      background: rgba(37,99,235,0.10);
+      color: #2563eb;
+    }
+
+    .purple {
+      background: rgba(124,58,237,0.10);
+      color: #7c3aed;
+    }
+
+    .teal {
+      background: rgba(20,184,166,0.10);
+      color: #0f766e;
     }
 
     .card-title {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .card-text {
-      font-size: 14px;
-      color: #6b7280;
-      line-height: 1.4;
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .feature {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      font-size: 13px;
+      color: #475569;
+      font-weight: 600;
     }
 
     .footer {
-      margin-top: 28px;
-      font-size: 12px;
-      color: #9ca3af;
+      margin-top: 34px;
+      font-size: 13px;
+      color: #94a3b8;
     }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 28px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <main class="container">
-    <div class="eyebrow">Volvo AI Demo</div>
 
-    <h1>Premium Car AI Agent</h1>
+  <main class="container">
+
+    <div class="eyebrow">Dealer AI Platform</div>
+
+    <h1>Agente Comercial Multi-Marca</h1>
+
+    <div class="gradient-line"></div>
 
     <p class="subtitle">
-      Panel central para acceder a las interfaces de prueba del agente comercial,
-      dashboard de leads y widget embebible.
+      Plataforma de demostración para agentes comerciales AI orientados a concesionarios
+      con múltiples marcas, sedes y flujos de captura inteligente de leads.
     </p>
 
     <section class="grid">
 
-      <a class="card" href="/ui/chat" target="_blank">
+      <a class="card" href="/ui/chat?tenant_id=dealer_multi_brand" target="_blank">
+
+        <div class="icon blue">💬</div>
+
         <div class="card-title">Chat full page</div>
+
         <div class="card-text">
-          Interfaz completa para probar conversación, quick replies y flujo comercial.
+          Interfaz conversacional completa para validar memoria multi-turn,
+          quick replies y flujo comercial del agente.
         </div>
+
       </a>
 
-      <a class="card" href="/ui/widget" target="_blank">
+      <a class="card" href="/ui/widget?tenant_id=dealer_multi_brand" target="_blank">
+
+        <div class="icon purple">▣</div>
+
         <div class="card-title">Widget flotante</div>
+
         <div class="card-text">
-          Demo del widget estilo Volvo para embeber en una página comercial.
+          Widget embebible para páginas comerciales multi-marca con integración
+          directa a workflows AI.
         </div>
+
       </a>
 
       <a class="card" href="/ui/leads" target="_blank">
+
+        <div class="icon teal">📈</div>
+
         <div class="card-title">Dashboard de leads</div>
+
         <div class="card-text">
-          Listado de leads, ciudad de cita, resumen y conversación completa.
+          Seguimiento de leads, scoring comercial, historial conversacional
+          y trazabilidad de citas.
         </div>
+
       </a>
 
     </section>
 
-    <div class="footer">
-      Premium Car AI Agent · FastAPI + n8n + OpenRouter
+    <div class="features">
+      <div class="feature">🚗 Multi-marca</div>
+      <div class="feature">🏢 Multi-sede</div>
+      <div class="feature">🤖 AI Sales Agent</div>
+      <div class="feature">📈 Lead Intelligence</div>
+      <div class="feature">⚡ FastAPI + n8n</div>
     </div>
+
+    <div class="footer">
+      Dealer AI Agent · FastAPI + n8n + OpenRouter
+    </div>
+
   </main>
+
 </body>
 </html>
