@@ -177,6 +177,51 @@
         font-size: 32px;
       }
     }
+body.theme-volvo {
+  background: linear-gradient(180deg, #f8fafc, #eef2f7);
+}
+
+body.theme-volvo .eyebrow {
+  color: #6b7280;
+}
+
+body.theme-volvo .gradient-line,
+body.theme-volvo .icon {
+  display: none;
+}
+
+body.theme-volvo .container {
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+}
+
+body.theme-volvo h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+body.theme-volvo .card:hover {
+  border-color: #111827;
+}
+
+body.theme-caminos {
+  background:
+    radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(168,85,247,0.10), transparent 30%),
+    linear-gradient(180deg, #f8fafc, #eef2f7);
+}
+
+body.theme-caminos .eyebrow {
+  color: #6366f1;
+}
+
+body.theme-caminos .gradient-line {
+  display: block;
+}
+
 
   </style>
 </head>
@@ -252,6 +297,56 @@
     </div>
 
   </main>
+<script>
+const host = window.location.hostname.toLowerCase();
 
+const params = new URLSearchParams(window.location.search);
+
+const tenant =
+  params.get("tenant_id") ||
+  (
+    host.includes("caminos-demo")
+      ? "caminos_eje_cafetero"
+      : host.includes("volvo-demo")
+        ? "volvo_colombia"
+        : "volvo_colombia"
+  );
+
+const COPY = {
+  volvo_colombia: {
+    eyebrow: "VOLVO AI DEMO",
+    title: "Volvo AI Sales Agent",
+    subtitle: "Panel central para probar el agente comercial Volvo, dashboard de leads y widget embebible.",
+    chat: "/ui/chat?tenant_id=volvo_colombia",
+    widget: "/ui/widget?tenant_id=volvo_colombia",
+    footer: "Volvo AI Agent · FastAPI + n8n + OpenRouter",
+    features: ["Seguridad Volvo", "Electrificación", "Lead Intelligence", "IA Comercial"]
+  },
+  caminos_eje_cafetero: {
+    eyebrow: "CAMINOS CHEVROLET AI DEMO",
+    title: "Caminos Chevrolet AI Sales Agent",
+    subtitle: "Panel central para probar el agente comercial de Caminos Chevrolet, dashboard de leads y widget embebible.",
+    chat: "/ui/chat?tenant_id=caminos_eje_cafetero",
+    widget: "/ui/widget?tenant_id=caminos_eje_cafetero",
+    footer: "Caminos Chevrolet AI Agent · FastAPI + n8n + OpenRouter",
+    features: ["Chevrolet", "Multi-sede", "Posventa", "Gestión de leads"]
+  }
+};
+
+const c = COPY[tenant];
+document.body.className =
+  tenant === "caminos_eje_cafetero"
+    ? "theme-caminos"
+    : "theme-volvo";
+document.querySelector(".eyebrow").innerText = c.eyebrow;
+document.querySelector("h1").innerText = c.title;
+document.querySelector(".subtitle").innerText = c.subtitle;
+document.querySelectorAll(".card")[0].href = c.chat;
+document.querySelectorAll(".card")[1].href = c.widget;
+document.querySelector(".footer").innerText = c.footer;
+document.querySelector(".features").innerHTML = c.features
+  .map(f => `<div class="feature">${f}</div>`)
+  .join("");
+</script>
 </body>
 </html>

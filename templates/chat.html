@@ -233,7 +233,60 @@
       color: #ffffff;
       border-color: #111827;
     }
+/* =========================
+   TENANT THEMES
+========================= */
 
+body.theme-volvo {
+  background: linear-gradient(180deg,#f8fafc,#eef2f7);
+}
+
+body.theme-volvo .app {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+body.theme-volvo .message.user,
+body.theme-volvo button {
+  background: #111827;
+}
+
+body.theme-volvo .composer input:focus {
+  border-color: #111827;
+}
+
+body.theme-volvo .quick-reply:hover {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+}
+
+body.theme-caminos {
+  background:
+    radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(168,85,247,0.10), transparent 30%),
+    linear-gradient(180deg,#f8fafc,#eef2f7);
+}
+
+body.theme-caminos .app {
+  box-shadow:
+    0 20px 45px rgba(15,23,42,0.08),
+    0 2px 6px rgba(15,23,42,0.04);
+}
+
+body.theme-caminos .message.user,
+body.theme-caminos button {
+  background: linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+body.theme-caminos .composer input:focus {
+  border-color: #6366f1;
+}
+
+body.theme-caminos .quick-reply:hover {
+  background: linear-gradient(135deg,#2563eb,#7c3aed);
+  border-color: #6366f1;
+  color: #ffffff;
+}
   </style>
 </head>
 
@@ -302,6 +355,11 @@ function inferTenantIdFromHostname(hostname) {
 const tenantId =
   params.get("tenant_id") ||
   inferTenantIdFromHostname(window.location.hostname);
+
+  document.body.className =
+  tenantId === "caminos_eje_cafetero"
+    ? "theme-caminos"
+    : "theme-volvo";
 
 const TENANT_GREETINGS = {
   volvo_colombia: "Hola, soy tu asesor virtual. \n¿En qué puedo ayudarte hoy?",
