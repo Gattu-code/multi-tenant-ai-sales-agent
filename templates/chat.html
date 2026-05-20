@@ -295,13 +295,7 @@ function inferTenantIdFromHostname(hostname) {
     return "caminos_eje_cafetero";
   }
 
-  if (
-  normalizedHostname.includes("dealer") ||
-  normalizedHostname.includes("caminos")
-  ) {
-    return "dealer_multi_brand";
-  }
-
+ 
   return "volvo_colombia";
 }
 
@@ -318,9 +312,9 @@ const fallbackGreeting = "Hola, soy tu asesor virtual. ¿En qué puedo ayudarte?
 
 const TENANT_BRANDING = {
   volvo_colombia: {
-    title: "Dealer AI Agent",
+    title: "Volvo AI Sales Agent",
     logo: "/static/brands/volvo.png",
-    fallback: "DEALER AI"
+    fallback: "VOLVO"
   },
   caminos_eje_cafetero: {
     title: "Caminos Chevrolet AI Sales Agent",
